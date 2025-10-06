@@ -34,6 +34,8 @@
 
 #define INSIDE_POKETCH_SCREEN(x, y) (((x - POKETCH_SCREEN_MIN_X) < (POKETCH_SCREEN_MAX_X - POKETCH_SCREEN_MIN_X)) & ((y - POKETCH_SCREEN_MIN_Y) < (POKETCH_SCREEN_MAX_Y - POKETCH_SCREEN_MIN_Y)))
 
+#define POKETCH_STATE_FUNC_TYPEDEF(appStruct) typedef BOOL (*StateFunc)(appStruct *);
+
 enum ButtonDir {
     BUTTON_UP = 0,
     BUTTON_DOWN,
