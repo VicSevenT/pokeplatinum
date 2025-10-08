@@ -855,9 +855,9 @@ void ov104_02232C80(UnkStruct_ov63_0222CCB8 *param0, UnkStruct_ov63_0222BEC0 *pa
 
 void ov104_02232CE0(UnkStruct_ov104_0223C4CC *param0, Pokemon *param1, enum HeapID heapID, int param3, int param4, int param5, int param6, int param7, int param8, u16 param9)
 {
-    SpriteSystem *v0 = param0->unk_34.unk_00;
-    SpriteManager *v1 = param0->unk_34.unk_04;
-    PaletteData *v2 = param0->unk_04;
+    SpriteSystem *v0 = param0->unk_34.spriteSys;
+    SpriteManager *v1 = param0->unk_34.spriteMan;
+    PaletteData *v2 = param0->palette;
     PokemonSpriteTemplate v3;
     void *v4;
     ManagedSprite *v5;
@@ -940,10 +940,10 @@ void ov104_02232E80(UnkStruct_ov104_0223C4CC *param0, int param1)
 
     param0->unk_80[param1 - 50000] = NULL;
 
-    SpriteManager_UnloadCharObjById(param0->unk_34.unk_04, param1);
-    SpriteManager_UnloadPlttObjById(param0->unk_34.unk_04, param1);
-    SpriteManager_UnloadCellObjById(param0->unk_34.unk_04, param1);
-    SpriteManager_UnloadAnimObjById(param0->unk_34.unk_04, param1);
+    SpriteManager_UnloadCharObjById(param0->unk_34.spriteMan, param1);
+    SpriteManager_UnloadPlttObjById(param0->unk_34.spriteMan, param1);
+    SpriteManager_UnloadCellObjById(param0->unk_34.spriteMan, param1);
+    SpriteManager_UnloadAnimObjById(param0->unk_34.spriteMan, param1);
 }
 
 static const SpriteTemplate Unk_ov104_0223F9E0 = {
@@ -974,16 +974,16 @@ static const SpriteTemplate Unk_ov104_0223F9AC = {
 
 void ov104_02232EC0(UnkStruct_ov104_0223C4CC *param0)
 {
-    SpriteSystem_LoadPaletteBuffer(param0->unk_04, PLTTBUF_MAIN_OBJ, param0->unk_34.unk_00, param0->unk_34.unk_04, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIconPalettesFileIndex(), FALSE, 3, NNS_G2D_VRAM_TYPE_2DMAIN, 2000);
-    SpriteSystem_LoadCellResObj(param0->unk_34.unk_00, param0->unk_34.unk_04, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIcon32KCellsFileIndex(), FALSE, 2000);
-    SpriteSystem_LoadAnimResObj(param0->unk_34.unk_00, param0->unk_34.unk_04, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIcon32KAnimationFileIndex(), FALSE, 2000);
+    SpriteSystem_LoadPaletteBuffer(param0->palette, PLTTBUF_MAIN_OBJ, param0->unk_34.spriteSys, param0->unk_34.spriteMan, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIconPalettesFileIndex(), FALSE, 3, NNS_G2D_VRAM_TYPE_2DMAIN, 2000);
+    SpriteSystem_LoadCellResObj(param0->unk_34.spriteSys, param0->unk_34.spriteMan, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIcon32KCellsFileIndex(), FALSE, 2000);
+    SpriteSystem_LoadAnimResObj(param0->unk_34.spriteSys, param0->unk_34.spriteMan, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, PokeIcon32KAnimationFileIndex(), FALSE, 2000);
 }
 
 void ov104_02232F28(UnkStruct_ov104_0223C4CC *param0)
 {
-    SpriteManager_UnloadCellObjById(param0->unk_34.unk_04, 2000);
-    SpriteManager_UnloadAnimObjById(param0->unk_34.unk_04, 2000);
-    SpriteManager_UnloadPlttObjById(param0->unk_34.unk_04, 2000);
+    SpriteManager_UnloadCellObjById(param0->unk_34.spriteMan, 2000);
+    SpriteManager_UnloadAnimObjById(param0->unk_34.spriteMan, 2000);
+    SpriteManager_UnloadPlttObjById(param0->unk_34.spriteMan, 2000);
 }
 
 ManagedSprite *ov104_02232F4C(UnkStruct_ov104_0223C4CC *param0, Pokemon *param1, int param2, int param3, int param4)
@@ -994,7 +994,7 @@ ManagedSprite *ov104_02232F4C(UnkStruct_ov104_0223C4CC *param0, Pokemon *param1,
     GF_ASSERT(param2 < (2008 - 2000));
 
     SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(
-        param0->unk_34.unk_00, param0->unk_34.unk_04, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, Pokemon_IconSpriteIndex(param1), FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 2000 + param2);
+        param0->unk_34.spriteSys, param0->unk_34.spriteMan, NARC_INDEX_POKETOOL__ICONGRA__PL_POKE_ICON, Pokemon_IconSpriteIndex(param1), FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 2000 + param2);
 
     v1 = Unk_ov104_0223F9E0;
 
@@ -1003,7 +1003,7 @@ ManagedSprite *ov104_02232F4C(UnkStruct_ov104_0223C4CC *param0, Pokemon *param1,
     v1.y = param4;
     v1.priority = 200;
 
-    v0 = SpriteSystem_NewSprite(param0->unk_34.unk_00, param0->unk_34.unk_04, &v1);
+    v0 = SpriteSystem_NewSprite(param0->unk_34.spriteSys, param0->unk_34.spriteMan, &v1);
 
     Sprite_SetExplicitPaletteOffsetAutoAdjust(v0->sprite, Pokemon_IconPaletteIndex(param1));
     ManagedSprite_TickFrame(v0);
@@ -1013,7 +1013,7 @@ ManagedSprite *ov104_02232F4C(UnkStruct_ov104_0223C4CC *param0, Pokemon *param1,
 
 void ov104_02232FD4(UnkStruct_ov104_0223C4CC *param0, ManagedSprite *param1, int param2)
 {
-    SpriteManager_UnloadCharObjById(param0->unk_34.unk_04, 2000 + param2);
+    SpriteManager_UnloadCharObjById(param0->unk_34.spriteMan, 2000 + param2);
     Sprite_DeleteAndFreeResources(param1);
 }
 
@@ -1021,19 +1021,19 @@ void ov104_02232FEC(UnkStruct_ov104_0223C4CC *param0)
 {
     NARC *v0 = NARC_ctor(NARC_INDEX_GRAPHIC__PL_PLIST_GRA, HEAP_ID_94);
 
-    SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->unk_04, PLTTBUF_MAIN_OBJ, param0->unk_34.unk_00, param0->unk_34.unk_04, v0, sub_02081934(), FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 2001);
-    SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_34.unk_00, param0->unk_34.unk_04, v0, sub_02081938(), FALSE, 2001);
-    SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_34.unk_00, param0->unk_34.unk_04, v0, sub_0208193C(), FALSE, 2001);
-    SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(param0->unk_34.unk_00, param0->unk_34.unk_04, 20, sub_02081930(), FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 2009);
+    SpriteSystem_LoadPaletteBufferFromOpenNarc(param0->palette, PLTTBUF_MAIN_OBJ, param0->unk_34.spriteSys, param0->unk_34.spriteMan, v0, sub_02081934(), FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, 2001);
+    SpriteSystem_LoadCellResObjFromOpenNarc(param0->unk_34.spriteSys, param0->unk_34.spriteMan, v0, sub_02081938(), FALSE, 2001);
+    SpriteSystem_LoadAnimResObjFromOpenNarc(param0->unk_34.spriteSys, param0->unk_34.spriteMan, v0, sub_0208193C(), FALSE, 2001);
+    SpriteSystem_LoadCharResObjAtEndWithHardwareMappingType(param0->unk_34.spriteSys, param0->unk_34.spriteMan, 20, sub_02081930(), FALSE, NNS_G2D_VRAM_TYPE_2DMAIN, 2009);
     NARC_dtor(v0);
 }
 
 void ov104_0223307C(UnkStruct_ov104_0223C4CC *param0)
 {
-    SpriteManager_UnloadCharObjById(param0->unk_34.unk_04, 2009);
-    SpriteManager_UnloadCellObjById(param0->unk_34.unk_04, 2001);
-    SpriteManager_UnloadAnimObjById(param0->unk_34.unk_04, 2001);
-    SpriteManager_UnloadPlttObjById(param0->unk_34.unk_04, 2001);
+    SpriteManager_UnloadCharObjById(param0->unk_34.spriteMan, 2009);
+    SpriteManager_UnloadCellObjById(param0->unk_34.spriteMan, 2001);
+    SpriteManager_UnloadAnimObjById(param0->unk_34.spriteMan, 2001);
+    SpriteManager_UnloadPlttObjById(param0->unk_34.spriteMan, 2001);
 }
 
 ManagedSprite *ov104_022330AC(UnkStruct_ov104_0223C4CC *param0, int param1, int param2)
@@ -1047,7 +1047,7 @@ ManagedSprite *ov104_022330AC(UnkStruct_ov104_0223C4CC *param0, int param1, int 
     v1.y = param2;
     v1.priority = 300;
 
-    v0 = SpriteSystem_NewSprite(param0->unk_34.unk_00, param0->unk_34.unk_04, &v1);
+    v0 = SpriteSystem_NewSprite(param0->unk_34.spriteSys, param0->unk_34.spriteMan, &v1);
     ManagedSprite_TickFrame(v0);
 
     return v0;

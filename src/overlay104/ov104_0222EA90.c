@@ -14,7 +14,7 @@
 typedef void (*UnkFuncPtr_ov104_0223F394)(UnkStruct_ov104_0223C4CC *, void **);
 
 typedef struct {
-    int unk_00;
+    int bgMode;
     UnkFuncPtr_ov104_0223F394 unk_04;
     UnkFuncPtr_ov104_0223F394 unk_08;
     u16 unk_0C;
@@ -25,9 +25,9 @@ typedef struct {
     u16 unk_16;
     u16 unk_18;
     u16 unk_1A;
-    u16 unk_1C;
-    u16 unk_1E;
-    u16 unk_20;
+    u16 tilemap2;
+    u16 tiles2;
+    u16 palette2;
     u8 unk_22;
     u8 unk_23;
     u8 unk_24[2];
@@ -52,7 +52,7 @@ static void ov104_0222ECE4(UnkStruct_ov104_0223C4CC *param0, void **param1);
 
 static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
     {
-        GX_BGMODE_0,
+        .bgMode = GX_BGMODE_0,
         ov104_0222EBBC,
         ov104_0222EBCC,
         0x4,
@@ -62,15 +62,15 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         .narcID = NARC_INDEX_RESOURCE__ENG__FRONTIER_GRAPHIC__FRONTIER_BG,
         0x1,
         0x0,
-        0x81,
-        0x3,
-        0x0,
-        0x81,
+        129,
+        .tilemap2 = 0x3,
+        .tiles2 = 0x0,
+        .palette2 = 0x81,
         0x0,
         0x1,
     },
     {
-        GX_BGMODE_0,
+        .bgMode = GX_BGMODE_0,
         NULL,
         NULL,
         0x0,
@@ -81,14 +81,14 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x2,
         0x0,
         0x81,
-        0xffff,
-        0xffff,
-        0xffff,
+        .tilemap2 = 0xffff,
+        .tiles2 = 0xffff,
+        .palette2 = 0xffff,
         0x0,
         0x1,
     },
     {
-        GX_BGMODE_0,
+        .bgMode = GX_BGMODE_0,
         NULL,
         NULL,
         0x5,
@@ -99,50 +99,50 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1,
         0x0,
         0x81,
-        0xffff,
-        0xffff,
-        0xffff,
+        .tilemap2 = 0xffff,
+        .tiles2 = 0xffff,
+        .palette2 = 0xffff,
         0x0,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         ov104_0222EC5C,
         ov104_0222EC70,
         0x1,
-        0x16D,
+        365,
         0x4AB,
         0x4,
         .narcID = NARC_INDEX_RESOURCE__ENG__FRONTIER_GRAPHIC__FRONTIER_BG,
         0x2,
         0x0,
         0x81,
-        0x3,
-        0x0,
-        0x81,
+        .tilemap2 = 0x3,
+        .tiles2 = 0x0,
+        .palette2 = 0x81,
         0x1,
         0x0,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         ov104_0222EC74,
         ov104_0222EC8C,
         0x1,
-        0x16D,
+        365,
         0x4AB,
         0x1,
         .narcID = NARC_INDEX_RESOURCE__ENG__FRONTIER_GRAPHIC__FRONTIER_BG,
         0x1,
         0x0,
         0x81,
-        0xffff,
-        0xffff,
-        0xffff,
+        .tilemap2 = 0xffff,
+        .tiles2 = 0xffff,
+        .palette2 = 0xffff,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         NULL,
         NULL,
         0x6,
@@ -153,14 +153,14 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x32,
         0x2D,
         0x8D,
-        0x33,
-        0x2D,
-        0x8D,
+        .tilemap2 = 0x33,
+        .tiles2 = 0x2D,
+        .palette2 = 0x8D,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         NULL,
         NULL,
         0x7,
@@ -171,14 +171,14 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x2F,
         0x2D,
         0x8D,
-        0x30,
-        0x2D,
-        0x8D,
+        .tilemap2 = 0x30,
+        .tiles2 = 0x2D,
+        .palette2 = 0x8D,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         NULL,
         NULL,
         0x8,
@@ -189,14 +189,14 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x31,
         0x2D,
         0x8D,
-        0xffff,
-        0xffff,
-        0xffff,
+        .tilemap2 = 0xffff,
+        .tiles2 = 0xffff,
+        .palette2 = 0xffff,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         NULL,
         NULL,
         0x9,
@@ -207,14 +207,14 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x2E,
         0x2D,
         0x8D,
-        0xffff,
-        0xffff,
-        0xffff,
+        .tilemap2 = 0xffff,
+        .tiles2 = 0xffff,
+        .palette2 = 0xffff,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         NULL,
         NULL,
         0x3,
@@ -225,14 +225,14 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x11,
         0x10,
         0x84,
-        0xffff,
-        0xffff,
-        0xffff,
+        .tilemap2 = 0xffff,
+        .tiles2 = 0xffff,
+        .palette2 = 0xffff,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         ov104_0222EBD8,
         ov104_0222EC0C,
         0x3,
@@ -240,17 +240,17 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x4A8,
         0x4,
         .narcID = NARC_INDEX_RESOURCE__ENG__FRONTIER_GRAPHIC__FRONTIER_BG,
-        0x14,
-        0xE,
-        0x83,
-        0x16,
-        0x13,
-        0x85,
+        20,
+        14,
+        131,
+        .tilemap2 = 22,
+        .tiles2 = 19,
+        .palette2 = 133,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         NULL,
         NULL,
         0x0,
@@ -258,17 +258,17 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x4A9,
         0x4,
         .narcID = NARC_INDEX_RESOURCE__ENG__FRONTIER_GRAPHIC__FRONTIER_BG,
-        0x1A,
-        0x19,
-        0x87,
-        0xffff,
-        0xffff,
-        0xffff,
+        26,
+        25,
+        135,
+        .tilemap2 = 0xffff,
+        .tiles2 = 0xffff,
+        .palette2 = 0xffff,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         ov104_0222ECAC,
         ov104_0222ECE4,
         0x0,
@@ -276,17 +276,17 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x4A9,
         0x1,
         .narcID = NARC_INDEX_RESOURCE__ENG__FRONTIER_GRAPHIC__FRONTIER_BG,
-        0x1E,
-        0x1D,
-        0x8C,
-        0x21,
-        0x1D,
-        0x8C,
-        0x1,
-        0x1,
+        30,
+        29,
+        140,
+        .tilemap2 = 33,
+        .tiles2 = 29,
+        .palette2 = 140,
+        1,
+        1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         NULL,
         NULL,
         0x0,
@@ -297,14 +297,14 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x1C,
         0x1B,
         0x88,
-        0xffff,
-        0xffff,
-        0xffff,
+        .tilemap2 = 0xffff,
+        .tiles2 = 0xffff,
+        .palette2 = 0xffff,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         ov104_0222EC90,
         ov104_0222ECA0,
         0xA,
@@ -315,14 +315,14 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x80,
         0x7F,
         0xAC,
-        0xffff,
-        0xffff,
-        0xffff,
+        .tilemap2 = 0xffff,
+        .tiles2 = 0xffff,
+        .palette2 = 0xffff,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         ov104_0222EC18,
         ov104_0222EC1C,
         0x2,
@@ -333,14 +333,14 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x37,
         0x38,
         0x8F,
-        0xffff,
-        0xffff,
-        0xffff,
+        .tilemap2 = 0xffff,
+        .tiles2 = 0xffff,
+        .palette2 = 0xffff,
         0x1,
         0x1,
     },
     {
-        GX_BGMODE_5,
+        .bgMode = GX_BGMODE_5,
         ov104_0222EC20,
         ov104_0222EC58,
         0x2,
@@ -348,14 +348,14 @@ static const UnkStruct_ov104_0223F394 Unk_ov104_0223F394[] = {
         0x4A7,
         0x4,
         .narcID = NARC_INDEX_RESOURCE__ENG__FRONTIER_GRAPHIC__FRONTIER_BG,
-        0x34,
-        0x36,
-        0x8E,
-        0x39,
-        0x59,
-        0xA9,
-        0x1,
-        0x1,
+        52,
+        54,
+        142,
+        .tilemap2 = 57,
+        .tiles2 = 89,
+        .palette2 = 169,
+        1,
+        1,
     },
 };
 
@@ -363,7 +363,7 @@ int ov104_0222EA90(int param0, int param1)
 {
     switch (param1) {
     case 0:
-        return Unk_ov104_0223F394[param0].unk_00;
+        return Unk_ov104_0223F394[param0].bgMode;
     case 1:
         return Unk_ov104_0223F394[param0].unk_0C;
     case 2:
@@ -381,11 +381,11 @@ int ov104_0222EA90(int param0, int param1)
     case 8:
         return Unk_ov104_0223F394[param0].unk_1A;
     case 9:
-        return Unk_ov104_0223F394[param0].unk_1C;
+        return Unk_ov104_0223F394[param0].tilemap2;
     case 10:
-        return Unk_ov104_0223F394[param0].unk_1E;
+        return Unk_ov104_0223F394[param0].tiles2;
     case 11:
-        return Unk_ov104_0223F394[param0].unk_20;
+        return Unk_ov104_0223F394[param0].palette2;
     case 12:
         return Unk_ov104_0223F394[param0].unk_22;
     case 13:
@@ -422,7 +422,7 @@ static void ov104_0222EBCC(UnkStruct_ov104_0223C4CC *param0, void **param1)
 
 static void ov104_0222EBD8(UnkStruct_ov104_0223C4CC *param0, void **param1)
 {
-    *param1 = ov104_0223D9E4(param0->unk_00, param0->unk_04);
+    *param1 = ov104_0223D9E4(param0->unk_00, param0->palette);
 
     Bg_SetPriority(BG_LAYER_MAIN_0, 1);
     Bg_SetPriority(BG_LAYER_MAIN_2, 2);

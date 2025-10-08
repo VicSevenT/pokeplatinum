@@ -23,7 +23,7 @@
 
 typedef struct UnkStruct_ov104_0223C4CC_t {
     BgConfig *unk_00;
-    PaletteData *unk_04;
+    PaletteData *palette;
     UnkStruct_0209B75C *unk_08;
     G3DPipelineBuffers *unk_0C;
     UnkStruct_ov104_0223D5F0 *unk_10;
@@ -36,8 +36,8 @@ typedef struct UnkStruct_ov104_0223C4CC_t {
     UnkStruct_ov63_0222D848 *unk_2C;
     UnkStruct_ov63_0222D77C *unk_30;
     struct {
-        SpriteSystem *unk_00;
-        SpriteManager *unk_04;
+        SpriteSystem *spriteSys;
+        SpriteManager *spriteMan;
     } unk_34;
     UnkStruct_ov104_0223D3B0_1 unk_3C;
     ManagedSprite *unk_80[4];

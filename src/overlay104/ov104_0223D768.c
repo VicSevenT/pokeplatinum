@@ -10,88 +10,88 @@
 
 static const SpriteTemplate Unk_ov104_022417D8[] = {
     {
-        0x0,
-        0x0,
-        0x0,
-        0x0,
-        0x64,
-        0x0,
+        0,
+        0,
+        0,
+        0,
+        100,
+        0,
         NNS_G2D_VRAM_TYPE_2DMAIN,
-        { 0x21, 0x2C, 0x23, 0x22, 0xffffffff, 0xffffffff },
-        0x1,
-        0x0,
+        { 33, 44, 35, 34, 4294967295, 4294967295 },
+        1,
+        0,
     },
     {
-        0x0,
-        0x0,
-        0x0,
-        0x0,
-        0x64,
-        0x0,
+        0,
+        0,
+        0,
+        0,
+        100,
+        0,
         NNS_G2D_VRAM_TYPE_2DMAIN,
-        { 0x21, 0x2C, 0x23, 0x22, 0xffffffff, 0xffffffff },
-        0x1,
-        0x0,
+        { 33, 44, 35, 34, 4294967295, 4294967295 },
+        1,
+        0,
     },
     {
-        0x0,
-        0x0,
-        0x0,
-        0x0,
-        0x64,
-        0x0,
+        0,
+        0,
+        0,
+        0,
+        100,
+        0,
         NNS_G2D_VRAM_TYPE_2DMAIN,
-        { 0x18, 0x2A, 0x1A, 0x19, 0xffffffff, 0xffffffff },
-        0x1,
-        0x0,
+        { 24, 42, 26, 25, 4294967295, 4294967295 },
+        1,
+        0,
     },
     {
-        0x0,
-        0x0,
-        0x0,
-        0x0,
-        0x64,
-        0x0,
+        0,
+        0,
+        0,
+        0,
+        100,
+        0,
         NNS_G2D_VRAM_TYPE_2DMAIN,
-        { 0x1B, 0x2B, 0x1D, 0x1C, 0xffffffff, 0xffffffff },
-        0x1,
-        0x0,
+        { 27, 43, 29, 28, 4294967295, 4294967295 },
+        1,
+        0,
     },
 };
 
-void ov104_0223D768(SpriteSystem *param0, SpriteManager *param1, NARC *param2, PaletteData *param3, u16 param4)
+void ov104_0223D768(SpriteSystem *spriteSys, SpriteManager *spriteMan, NARC *narc, PaletteData *palette, u16 param4)
 {
-    const SpriteTemplate *v0;
+    const SpriteTemplate *spriteTemplate;
 
     GF_ASSERT(param4 < NELEMS(Unk_ov104_022417D8));
-    v0 = &Unk_ov104_022417D8[param4];
+    spriteTemplate = &Unk_ov104_022417D8[param4];
 
-    SpriteSystem_LoadCharResObjFromOpenNarc(param0, param1, param2, v0->resources[SPRITE_RESOURCE_CHAR], TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, v0->resources[SPRITE_RESOURCE_CHAR]);
-    SpriteSystem_LoadPaletteBufferFromOpenNarc(param3, PLTTBUF_MAIN_OBJ, param0, param1, param2, v0->resources[SPRITE_RESOURCE_PLTT], FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, v0->resources[SPRITE_RESOURCE_PLTT]);
-    SpriteSystem_LoadCellResObjFromOpenNarc(param0, param1, param2, v0->resources[SPRITE_RESOURCE_CELL], TRUE, v0->resources[SPRITE_RESOURCE_CELL]);
-    SpriteSystem_LoadAnimResObjFromOpenNarc(param0, param1, param2, v0->resources[SPRITE_RESOURCE_ANIM], TRUE, v0->resources[SPRITE_RESOURCE_ANIM]);
+    SpriteSystem_LoadCharResObjFromOpenNarc(spriteSys, spriteMan, narc, spriteTemplate->resources[SPRITE_RESOURCE_CHAR], TRUE, NNS_G2D_VRAM_TYPE_2DMAIN, spriteTemplate->resources[SPRITE_RESOURCE_CHAR]);
+    SpriteSystem_LoadPaletteBufferFromOpenNarc(palette, PLTTBUF_MAIN_OBJ, spriteSys, spriteMan, narc, spriteTemplate->resources[SPRITE_RESOURCE_PLTT], FALSE, 1, NNS_G2D_VRAM_TYPE_2DMAIN, spriteTemplate->resources[SPRITE_RESOURCE_PLTT]);
+    SpriteSystem_LoadCellResObjFromOpenNarc(spriteSys, spriteMan, narc, spriteTemplate->resources[SPRITE_RESOURCE_CELL], TRUE, spriteTemplate->resources[SPRITE_RESOURCE_CELL]);
+    SpriteSystem_LoadAnimResObjFromOpenNarc(spriteSys, spriteMan, narc, spriteTemplate->resources[SPRITE_RESOURCE_ANIM], TRUE, spriteTemplate->resources[SPRITE_RESOURCE_ANIM]);
 }
 
-void ov104_0223D7EC(SpriteManager *param0, u16 param1)
+void ov104_0223D7EC(SpriteManager *spriteMan, u16 param1)
 {
-    const SpriteTemplate *v0;
+    const SpriteTemplate *spriteTemplate;
 
     GF_ASSERT(param1 < NELEMS(Unk_ov104_022417D8));
-    v0 = &Unk_ov104_022417D8[param1];
+    spriteTemplate = &Unk_ov104_022417D8[param1];
 
-    SpriteManager_UnloadCharObjById(param0, v0->resources[0]);
-    SpriteManager_UnloadPlttObjById(param0, v0->resources[1]);
-    SpriteManager_UnloadCellObjById(param0, v0->resources[2]);
-    SpriteManager_UnloadAnimObjById(param0, v0->resources[3]);
+    SpriteManager_UnloadCharObjById(spriteMan, spriteTemplate->resources[0]);
+    SpriteManager_UnloadPlttObjById(spriteMan, spriteTemplate->resources[1]);
+    SpriteManager_UnloadCellObjById(spriteMan, spriteTemplate->resources[2]);
+    SpriteManager_UnloadAnimObjById(spriteMan, spriteTemplate->resources[3]);
 }
 
-ManagedSprite *ov104_0223D828(SpriteSystem *param0, SpriteManager *param1, u16 param2)
+ManagedSprite *ov104_0223D828(SpriteSystem *spriteSys, SpriteManager *spriteMan, u16 param2)
 {
     ManagedSprite *v0;
 
     GF_ASSERT(param2 < NELEMS(Unk_ov104_022417D8));
 
-    v0 = SpriteSystem_NewSprite(param0, param1, &Unk_ov104_022417D8[param2]);
+    v0 = SpriteSystem_NewSprite(spriteSys, spriteMan, &Unk_ov104_022417D8[param2]);
     Sprite_TickFrame(v0->sprite);
     return v0;
 }

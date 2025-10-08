@@ -506,7 +506,7 @@ BOOL ov104_02237748(UnkStruct_ov104_0222E930 *param0)
         break;
     case 44:
         if (v18 == 0) {
-            PaletteData_Blend(v15->unk_04, 2, 0, 16 * 16, v18, 0x0);
+            PaletteData_Blend(v15->palette, 2, 0, 16 * 16, v18, 0x0);
         } else {
             {
                 u32 v25;
@@ -516,7 +516,7 @@ BOOL ov104_02237748(UnkStruct_ov104_0222E930 *param0)
                 v26 = ov104_0223D5A8(param0->unk_00->unk_00, v19);
                 v25 = ov63_0222D050(v26->unk_04);
 
-                PaletteData_Blend(v15->unk_04, 2, (v25 * 16), 16, v18, 0x0);
+                PaletteData_Blend(v15->palette, 2, (v25 * 16), 16, v18, 0x0);
             }
         }
         break;

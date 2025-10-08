@@ -1229,12 +1229,12 @@ static BOOL ov104_022305DC(UnkStruct_ov104_0222E930 *param0)
     const u8 *v2;
     s32 v3;
     u16 v4;
-    NARC *v5;
+    NARC *narc;
 
     v3 = ov104_0222EA60(param0);
     v2 = param0->unk_1C;
     param0->unk_1C = (u8 *)(param0->unk_1C + v3);
-    v5 = NARC_ctor(NARC_INDEX_RESOURCE__ENG__FRONTIER_GRAPHIC__FRONTIER_OBJ, v0->heapID);
+    narc = NARC_ctor(NARC_INDEX_RESOURCE__ENG__FRONTIER_GRAPHIC__FRONTIER_OBJ, v0->heapID);
 
     while (TRUE) {
         v4 = ov104_0222FC00(param0);
@@ -1243,11 +1243,11 @@ static BOOL ov104_022305DC(UnkStruct_ov104_0222E930 *param0)
             break;
         }
 
-        ov104_0223D768(v1->unk_34.unk_00, v1->unk_34.unk_04, v5, v1->unk_04, v4);
+        ov104_0223D768(v1->unk_34.spriteSys, v1->unk_34.spriteMan, narc, v1->palette, v4);
         ov104_0223D29C(v1, v4);
     }
 
-    NARC_dtor(v5);
+    NARC_dtor(narc);
     param0->unk_1C = v2;
 
     return 0;
@@ -1259,7 +1259,7 @@ static BOOL ov104_02230640(UnkStruct_ov104_0222E930 *param0)
     UnkStruct_ov104_0223C4CC *v1 = sub_0209B974(v0->unk_00);
     u16 v2 = ov104_0222FC00(param0);
 
-    ov104_0223D7EC(v1->unk_34.unk_04, v2);
+    ov104_0223D7EC(v1->unk_34.spriteMan, v2);
     ov104_0223D2CC(v1, v2);
 
     return 0;
@@ -2073,7 +2073,7 @@ static BOOL ov104_022311BC(UnkStruct_ov104_02231148 *param0)
         param0->unk_28 = Window_New(HEAP_ID_FIELD2, 1);
 
         Window_Add(param0->unk_00->unk_00, param0->unk_28, 1, 0, 0, 32, 32, 0, 0);
-        PaletteData_FillBufferRange(param0->unk_00->unk_04, 0, 2, 0x0, 0, 16);
+        PaletteData_FillBufferRange(param0->unk_00->palette, 0, 2, 0x0, 0, 16);
         Window_FillTilemap(param0->unk_28, 0);
         Window_ScheduleCopyToVRAM(param0->unk_28);
 
@@ -2127,7 +2127,7 @@ static BOOL ov104_022312D8(UnkStruct_ov104_02231148 *param0)
         param0->unk_28 = Window_New(HEAP_ID_FIELD2, 1);
 
         Window_Add(param0->unk_00->unk_00, param0->unk_28, 1, 0, 0, 32, 32, 0, 0);
-        PaletteData_FillBufferRange(param0->unk_00->unk_04, 0, 2, 0x0, 0, 16);
+        PaletteData_FillBufferRange(param0->unk_00->palette, 0, 2, 0x0, 0, 16);
         Window_FillTilemap(param0->unk_28, 0);
         Window_ScheduleCopyToVRAM(param0->unk_28);
 
@@ -2478,7 +2478,7 @@ static BOOL ov104_02231A28(UnkStruct_ov104_0222E930 *param0)
 
     sub_0209B980(param0->unk_00->unk_00, v1);
     ov104_0222E974(param0, ov104_02231AA8);
-    PaletteData_FillBufferRange(v1->unk_00->unk_04, 0, 2, 0x0, 0, 1);
+    PaletteData_FillBufferRange(v1->unk_00->palette, 0, 2, 0x0, 0, 1);
 
     return 1;
 }
@@ -2710,7 +2710,7 @@ static BOOL ov104_02231DAC(UnkStruct_ov104_0222E930 *param0)
     s16 v2, v3;
 
     ov104_0223D554(v0, &v2, &v3);
-    ov104_0223DC7C(v1, v0->unk_00, v0->unk_34.unk_00, v0->unk_34.unk_04, v0->unk_04, &param0->unk_78[0], v2, v3);
+    ov104_0223DC7C(v1, v0->unk_00, v0->unk_34.spriteSys, v0->unk_34.spriteMan, v0->palette, &param0->unk_78[0], v2, v3);
     Sound_SetSceneAndPlayBGM(SOUND_SCENE_BATTLE, SEQ_BATTLE_FRONTIER_BRAIN, 1);
     ov104_0222E974(param0, ov104_02231E14);
 
