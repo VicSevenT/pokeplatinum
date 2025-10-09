@@ -5,16 +5,16 @@
 #include "overlay104/funcptr_ov104_0222E974.h"
 #include "overlay104/struct_ov104_0222E930_decl.h"
 
-void ov104_0222E930(UnkStruct_ov104_0222E930 *param0, const UnkFuncPtr_ov104_0222E930 *param1, u32 param2);
-u8 ov104_0222E968(UnkStruct_ov104_0222E930 *param0, const u8 *param1);
-void ov104_0222E974(UnkStruct_ov104_0222E930 *param0, UnkFuncPtr_ov104_0222E974 param1);
-void ov104_0222E980(UnkStruct_ov104_0222E930 *param0);
-u8 ov104_0222E988(UnkStruct_ov104_0222E930 *param0);
-u8 ov104_0222E9F8(UnkStruct_ov104_0222E930 *param0, const u8 *param1);
-const u8 *ov104_0222EA14(UnkStruct_ov104_0222E930 *param0);
-void ov104_0222EA2C(UnkStruct_ov104_0222E930 *param0, u8 *param1);
-void ov104_0222EA3C(UnkStruct_ov104_0222E930 *param0);
-u16 ov104_0222EA48(UnkStruct_ov104_0222E930 *param0);
-u32 ov104_0222EA60(UnkStruct_ov104_0222E930 *param0);
+#define FrontierScriptContext_ReadByte(ctx) (*(ctx->scriptPtr++))
+
+void FrontierScriptContext_Init(FrontierScriptContext *param0, const FrontierScrCmdFunc *param1, u32 param2);
+BOOL FrontierScriptContext_Start(FrontierScriptContext *param0, const u8 *param1);
+void FrontierScriptContext_Pause(FrontierScriptContext *param0, FrontierShouldResumeScriptFunc param1);
+void FrontierScriptContext_Stop(FrontierScriptContext *param0);
+BOOL FrontierScriptContext_Run(FrontierScriptContext *param0);
+void FrontierScriptContext_Call(FrontierScriptContext *param0, const u8 *param1);
+void FrontierScriptContext_Return(FrontierScriptContext *param0);
+u16 FrontierScriptContext_ReadHalfWord(FrontierScriptContext *param0);
+u32 FrontierScriptContext_ReadWord(FrontierScriptContext *param0);
 
 #endif // POKEPLATINUM_OV104_0222E930_H

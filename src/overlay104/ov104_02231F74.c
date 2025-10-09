@@ -99,9 +99,6 @@ static void ov104_02231FC4(UnkStruct_ov104_022320B4 *param0);
 static void ov104_02232034(UnkStruct_ov104_022320B4 *param0, const MessageLoader *param1, u32 param2);
 static void ov104_02232050(UnkStruct_ov104_022320B4 *param0, enum Font param1, int param2, int param3, int param4);
 static void ov104_0223214C(UnkStruct_ov104_022320B4 *param0, UnkStruct_ov104_02232B5C *param1, u8 param2, u8 param3, u8 param4, u8 param5, u16 *param6, StringTemplate *param7, MessageLoader *param8);
-UnkStruct_ov104_02232B5C *ov104_02232258(UnkStruct_ov104_022320B4 *param0, u8 param1, u8 param2, u8 param3, u8 param4, u16 *param5, StringTemplate *param6, MessageLoader *param7);
-void ov104_022322A8(UnkStruct_ov104_02232B5C *param0, u32 param1, u32 param2, u32 param3);
-void ov104_022322B0(UnkStruct_ov104_02232B5C *param0);
 static void ov104_02232390(UnkStruct_ov104_02232B5C *param0, u32 param1, u32 param2, u32 param3);
 static u32 ov104_02232414(UnkStruct_ov104_02232B5C *param0);
 static void ov104_02232454(UnkStruct_ov104_02232B5C *param0);
@@ -109,12 +106,9 @@ static void ov104_022324C8(SysTask *param0, void *param1);
 static void ov104_02232570(UnkStruct_ov104_02232B5C *param0);
 static void ov104_022325D8(UnkStruct_ov104_02232B5C *param0);
 static void ov104_02232AC4(UnkStruct_ov104_02232B5C *param0, u16 param1, u32 param2);
-void ov104_022320B4(UnkStruct_ov104_022320B4 *param0, u8 param1, u16 param2, u16 param3, u16 param4, s16 param5, u8 param6);
+static void ov104_022320B4(UnkStruct_ov104_022320B4 *param0, u8 param1, u16 param2, u16 param3, u16 param4, s16 param5, u8 param6);
 static void ov104_022320FC(Strbuf *param0, u16 param1, u16 param2, u16 param3, u16 param4);
-static BOOL ov104_02233184(UnkStruct_ov104_0222E930 *param0);
-UnkStruct_ov104_02232B5C *ov104_022325FC(UnkStruct_ov104_022320B4 *param0, u8 param1, u8 param2, u8 param3, u8 param4, u16 *param5, StringTemplate *param6, MessageLoader *param7);
-void ov104_0223261C(UnkStruct_ov104_02232B5C *param0, u32 param1, u32 param2, u32 param3);
-void ov104_02232624(UnkStruct_ov104_02232B5C *param0);
+static BOOL ov104_02233184(FrontierScriptContext *param0);
 static void ov104_02232750(UnkStruct_ov104_02232B5C *param0, u32 param1, u32 param2, u32 param3);
 static u32 ov104_022327F0(UnkStruct_ov104_02232B5C *param0);
 static void ov104_02232830(UnkStruct_ov104_02232B5C *param0);
@@ -123,11 +117,6 @@ static void ov104_02232960(ListMenu *param0, u32 param1, u8 param2);
 static void ov104_0223296C(SysTask *param0, void *param1);
 static void ov104_02232A58(UnkStruct_ov104_02232B5C *param0, u8 param1);
 static void ov104_02232B2C(UnkStruct_ov104_02232B5C *param0);
-void ov104_02232B5C(UnkStruct_ov104_02232B5C *param0);
-void ov104_022330FC(UnkStruct_ov104_0222E930 *param0, u16 *param1);
-void ov104_0223310C(UnkStruct_ov104_0222E930 *param0, u16 *param1, u32 param2);
-extern void ov104_0223327C(UnkStruct_ov104_02232B5C *param0, int param1);
-extern void ov104_02233298(UnkStruct_ov104_02232B5C *param0, int param1);
 
 void ov104_02231F74(UnkStruct_ov104_022320B4 *param0, const MessageLoader *param1, u16 param2, u8 param3, UnkStruct_ov104_0222FEDC *param4)
 {
@@ -196,7 +185,7 @@ void ov104_02232088(UnkStruct_ov104_022320B4 *param0)
     param0->unk_5A = 0;
 }
 
-void ov104_022320B4(UnkStruct_ov104_022320B4 *param0, u8 param1, u16 param2, u16 param3, u16 param4, s16 param5, u8 param6)
+static void ov104_022320B4(UnkStruct_ov104_022320B4 *param0, u8 param1, u16 param2, u16 param3, u16 param4, s16 param5, u8 param6)
 {
     Sentence v0;
 
@@ -1058,13 +1047,13 @@ void ov104_022330F0(UnkStruct_ov104_0223C4CC *param0, ManagedSprite *param1)
     Sprite_DeleteAndFreeResources(param1);
 }
 
-void ov104_022330FC(UnkStruct_ov104_0222E930 *param0, u16 *param1)
+void ov104_022330FC(FrontierScriptContext *param0, u16 *param1)
 {
     ov104_0223310C(param0, param1, TEXT_BANK_FRONTIER_TRAINER_MESSAGES);
     return;
 }
 
-void ov104_0223310C(UnkStruct_ov104_0222E930 *param0, u16 *param1, u32 bankID)
+void ov104_0223310C(FrontierScriptContext *param0, u16 *param1, u32 bankID)
 {
     u8 v0;
     MessageLoader *v1;
@@ -1080,11 +1069,11 @@ void ov104_0223310C(UnkStruct_ov104_0222E930 *param0, u16 *param1, u32 bankID)
         ov104_022320B4(param0->unk_00, v0, param1[0], param1[1], param1[2], param1[3], 1);
     }
 
-    ov104_0222E974(param0, ov104_02233184);
+    FrontierScriptContext_Pause(param0, ov104_02233184);
     return;
 }
 
-static BOOL ov104_02233184(UnkStruct_ov104_0222E930 *param0)
+static BOOL ov104_02233184(FrontierScriptContext *param0)
 {
     if (Text_IsPrinterActive(param0->unk_00->unk_50) == 0) {
         return 1;

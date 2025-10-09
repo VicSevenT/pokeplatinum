@@ -1,169 +1,151 @@
 #include "overlay104/ov104_0222E930.h"
 
 #include <nitro.h>
-#include <string.h>
 
 #include "overlay104/funcptr_ov104_0222E930.h"
 #include "overlay104/funcptr_ov104_0222E974.h"
 #include "overlay104/struct_ov104_0222E930_decl.h"
 #include "overlay104/struct_ov104_0222E930_t.h"
 
-void ov104_0222E930(UnkStruct_ov104_0222E930 *param0, const UnkFuncPtr_ov104_0222E930 *param1, u32 param2);
-u8 ov104_0222E968(UnkStruct_ov104_0222E930 *param0, const u8 *param1);
-void ov104_0222E974(UnkStruct_ov104_0222E930 *param0, UnkFuncPtr_ov104_0222E974 param1);
-void ov104_0222E980(UnkStruct_ov104_0222E930 *param0);
-u8 ov104_0222E988(UnkStruct_ov104_0222E930 *param0);
-u8 ov104_0222E9F8(UnkStruct_ov104_0222E930 *param0, const u8 *param1);
-const u8 *ov104_0222EA14(UnkStruct_ov104_0222E930 *param0);
-void ov104_0222EA2C(UnkStruct_ov104_0222E930 *param0, u8 *param1);
-void ov104_0222EA3C(UnkStruct_ov104_0222E930 *param0);
-u16 ov104_0222EA48(UnkStruct_ov104_0222E930 *param0);
-u32 ov104_0222EA60(UnkStruct_ov104_0222E930 *param0);
+enum FrontierScriptState {
+    SCRIPT_STATE_STOPPED,
+    SCRIPT_STATE_RUNNING,
+    SCRIPT_STATE_WAITING,
+};
 
-void ov104_0222E930(UnkStruct_ov104_0222E930 *param0, const UnkFuncPtr_ov104_0222E930 *param1, u32 param2)
+void FrontierScriptContext_Init(FrontierScriptContext *ctx, const FrontierScrCmdFunc *cmdTable, u32 cmdTableSize)
 {
-    u32 v0;
+    ctx->state = SCRIPT_STATE_STOPPED;
+    ctx->scriptPtr = NULL;
+    ctx->stackPointer = 0;
+    ctx->shouldResume = NULL;
+    ctx->cmdTable = cmdTable;
+    ctx->cmdTableSize = cmdTableSize;
 
-    param0->unk_19 = 0;
-    param0->unk_1C = NULL;
-    param0->unk_18 = 0;
-    param0->unk_88 = NULL;
-    param0->unk_70 = param1;
-    param0->unk_74 = param2;
-
-    for (v0 = 0; v0 < (((((((0x8000 + 7) + 1) + 7) + 1) + 3) + 1) - ((((0x8000 + 7) + 1) + 7) + 1)); v0++) {
-        param0->unk_78[v0] = 0;
+    u32 i;
+    for (i = 0; i < NELEMS(ctx->data); i++) {
+        ctx->data[i] = 0;
     }
 
-    for (v0 = 0; v0 < 20; v0++) {
-        param0->unk_20[v0] = NULL;
+    for (i = 0; i < 20; i++) {
+        ctx->stack[i] = NULL;
     }
 }
 
-u8 ov104_0222E968(UnkStruct_ov104_0222E930 *param0, const u8 *param1)
+BOOL FrontierScriptContext_Start(FrontierScriptContext *ctx, const u8 *ptr)
 {
-    param0->unk_1C = param1;
-    param0->unk_19 = 1;
+    ctx->scriptPtr = ptr;
+    ctx->state = SCRIPT_STATE_RUNNING;
 
-    return 1;
+    return TRUE;
 }
 
-void ov104_0222E974(UnkStruct_ov104_0222E930 *param0, UnkFuncPtr_ov104_0222E974 param1)
+void FrontierScriptContext_Pause(FrontierScriptContext *ctx, FrontierShouldResumeScriptFunc shouldResume)
 {
-    param0->unk_19 = 2;
-    param0->unk_88 = param1;
+    ctx->state = SCRIPT_STATE_WAITING;
+    ctx->shouldResume = shouldResume;
 }
 
-void ov104_0222E980(UnkStruct_ov104_0222E930 *param0)
+void FrontierScriptContext_Stop(FrontierScriptContext *ctx)
 {
-    param0->unk_19 = 0;
-    param0->unk_1C = NULL;
+    ctx->state = SCRIPT_STATE_STOPPED;
+    ctx->scriptPtr = NULL;
 }
 
-u8 ov104_0222E988(UnkStruct_ov104_0222E930 *param0)
+BOOL FrontierScriptContext_Run(FrontierScriptContext *ctx)
 {
-    u16 v0;
-
-    switch (param0->unk_19) {
-    case 0:
-        return 0;
-    case 2:
-        if (param0->unk_88 != NULL) {
-            if (param0->unk_88(param0) == 1) {
-                param0->unk_19 = 1;
-                param0->unk_88 = NULL;
+    switch (ctx->state) {
+    case SCRIPT_STATE_STOPPED:
+        return FALSE;
+    case SCRIPT_STATE_WAITING:
+        if (ctx->shouldResume != NULL) {
+            if (ctx->shouldResume(ctx) == TRUE) {
+                ctx->state = SCRIPT_STATE_RUNNING;
+                ctx->shouldResume = NULL;
             }
-
-            return 1;
+            return TRUE;
         }
+        ctx->state = SCRIPT_STATE_RUNNING;
+        // fallthrough
 
-        param0->unk_19 = 1;
-    case 1:
+    case SCRIPT_STATE_RUNNING:
         while (TRUE) {
-            if (param0->unk_1C == NULL) {
-                param0->unk_19 = 0;
-                return 0;
+            if (ctx->scriptPtr == NULL) {
+                ctx->state = SCRIPT_STATE_STOPPED;
+                return FALSE;
             }
 
-            v0 = ov104_0222EA48(param0);
-
-            if (v0 >= param0->unk_74) {
-                GF_ASSERT(0);
-                param0->unk_19 = 0;
-                return 0;
+            u16 cmdCode = FrontierScriptContext_ReadHalfWord(ctx);
+            if (cmdCode >= ctx->cmdTableSize) {
+                GF_ASSERT(FALSE);
+                ctx->state = SCRIPT_STATE_STOPPED;
+                return FALSE;
             }
 
-            if (param0->unk_70[v0](param0) == 1) {
+            if (ctx->cmdTable[cmdCode](ctx) == TRUE) {
                 break;
             }
         }
-
-        break;
     }
 
-    return 1;
+    return TRUE;
 }
 
-u8 ov104_0222E9F8(UnkStruct_ov104_0222E930 *param0, const u8 *param1)
+static BOOL FrontierScriptContext_Push(FrontierScriptContext *ctx, const u8 *ptr)
 {
-    if (param0->unk_18 + 1 >= 20) {
-        return 1;
+    if (ctx->stackPointer + 1 >= (int)NELEMS(ctx->stack)) {
+        return TRUE;
     }
 
-    param0->unk_20[param0->unk_18] = param1;
-    param0->unk_18++;
+    ctx->stack[ctx->stackPointer] = ptr;
+    ctx->stackPointer++;
 
-    return 0;
+    return FALSE;
 }
 
-const u8 *ov104_0222EA14(UnkStruct_ov104_0222E930 *param0)
+static const u8 *FrontierScriptContext_Pop(FrontierScriptContext *ctx)
 {
-    if (param0->unk_18 == 0) {
+    if (ctx->stackPointer == 0) {
         return NULL;
     }
 
-    param0->unk_18--;
-
-    return param0->unk_20[param0->unk_18];
+    return ctx->stack[--ctx->stackPointer];
 }
 
-void ov104_0222EA2C(UnkStruct_ov104_0222E930 *param0, u8 *param1)
+void FrontierScriptContext_Call(FrontierScriptContext *ctx, const u8 *ptr)
 {
-    ov104_0222E9F8(param0, param0->unk_1C);
-    param0->unk_1C = param1;
+    FrontierScriptContext_Push(ctx, ctx->scriptPtr);
+    ctx->scriptPtr = ptr;
 }
 
-void ov104_0222EA3C(UnkStruct_ov104_0222E930 *param0)
+void FrontierScriptContext_Return(FrontierScriptContext *ctx)
 {
-    param0->unk_1C = ov104_0222EA14(param0);
+    ctx->scriptPtr = FrontierScriptContext_Pop(ctx);
 }
 
-u16 ov104_0222EA48(UnkStruct_ov104_0222E930 *param0)
+u16 FrontierScriptContext_ReadHalfWord(FrontierScriptContext *ctx)
 {
-    u16 v0 = (u16)(*((param0)->unk_1C++));
-    v0 += (u16)(*((param0)->unk_1C++)) << 8;
+    u16 value = FrontierScriptContext_ReadByte(ctx);
+    value += FrontierScriptContext_ReadByte(ctx) << 8;
 
-    return v0;
+    return value;
 }
 
-u32 ov104_0222EA60(UnkStruct_ov104_0222E930 *param0)
+u32 FrontierScriptContext_ReadWord(FrontierScriptContext *ctx)
 {
-    u32 v0;
-    u8 v1, v2, v3, v4;
+    u8 byte0 = FrontierScriptContext_ReadByte(ctx);
+    u8 byte1 = FrontierScriptContext_ReadByte(ctx);
+    u8 byte2 = FrontierScriptContext_ReadByte(ctx);
+    u8 byte3 = FrontierScriptContext_ReadByte(ctx);
+    u32 value = 0;
 
-    v1 = (*((param0)->unk_1C++));
-    v2 = (*((param0)->unk_1C++));
-    v3 = (*((param0)->unk_1C++));
-    v4 = (*((param0)->unk_1C++));
-    v0 = 0;
+    value += byte3;
+    value <<= 8;
+    value += byte2;
+    value <<= 8;
+    value += byte1;
+    value <<= 8;
+    value += byte0;
 
-    v0 += (u32)v4;
-    v0 <<= 8;
-    v0 += (u32)v3;
-    v0 <<= 8;
-    v0 += (u32)v2;
-    v0 <<= 8;
-    v0 += (u32)v1;
-
-    return v0;
+    return value;
 }

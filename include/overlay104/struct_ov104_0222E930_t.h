@@ -11,16 +11,16 @@ struct UnkStruct_ov104_0222E930_t {
     UnkStruct_ov104_022320B4 *unk_00;
     u32 unk_04;
     u16 unk_08[8];
-    u8 unk_18;
-    u8 unk_19;
-    const u8 *unk_1C;
-    const u8 *unk_20[20];
-    const UnkFuncPtr_ov104_0222E930 *unk_70;
-    u32 unk_74;
-    u16 unk_78[4];
+    u8 stackPointer;
+    u8 state;
+    const u8 *scriptPtr;
+    const u8 *stack[20];
+    const FrontierScrCmdFunc *cmdTable;
+    u32 cmdTableSize;
+    u16 data[4];
     MessageLoader *unk_80;
-    u8 *unk_84;
-    UnkFuncPtr_ov104_0222E974 unk_88;
+    u8 *scripts;
+    FrontierShouldResumeScriptFunc shouldResume;
     u8 unk_8C;
 };
 
